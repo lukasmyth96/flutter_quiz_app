@@ -12,7 +12,8 @@ class Quiz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Wrap(
+      runSpacing: 10,
       children: [
         Question(questions[questionIndex]['questionText']),
         ...(questions[questionIndex]['answers'] as List<String>)

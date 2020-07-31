@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './quiz.dart';
-import './completion_message.dart';
+import 'completion_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,6 +35,14 @@ class _MyAppState extends State<MyApp> {
     },
   ];
 
+  void _restartQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _quizUnfinished = true;
+      _score = 0;
+    });
+  }
+
   void _onAnswerClick(answerText) {
     setState(() {
       if (answerText == questions[_questionIndex]['correctAnswer']) {
@@ -56,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: _quizUnfinished
             ? Quiz(questions, _questionIndex, _onAnswerClick)
-            : CompletionMessage('Your scored: ${_score.toString()} points!'),
+            : CompletionPage(_score, _restartQuiz),
       ),
     );
   }
