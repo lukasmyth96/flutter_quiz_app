@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './completion_message.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,20 +48,8 @@ class _MyAppState extends State<MyApp> {
           title: Text('Quiz App'),
         ),
         body: _quizUnfinished
-            ? Column(
-                children: [
-                  Question(questions[_questionIndex]['questionText']),
-                  ...(questions[_questionIndex]['answers'] as List<String>)
-                      .map((answerText) => Answer(answerText, _onAnswerClick))
-                      .toList(),
-                ],
-              )
-            : Center(
-                child: Text(
-                  'Thanks for completing the Quiz!',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
+            ? Quiz(questions, _questionIndex, _onAnswerClick)
+            : CompletionMessage('You finished the Quiz!'),
       ),
     );
   }
