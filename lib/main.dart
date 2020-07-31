@@ -14,25 +14,32 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _score = 0;
   var _quizUnfinished = true;
 
   static const questions = [
     {
-      'questionText': 'what\'s your favorite colour?',
-      'answers': ['Black', 'Red', 'Green', 'White']
+      'questionText': 'what are the tallest trees on earth?',
+      'answers': ['Coast Redwood', 'Giant Sequoia', 'Sitka Spruce'],
+      'correctAnswer': 'Coast Redwood',
     },
     {
-      'questionText': 'what\'s your favorite animal?',
-      'answers': ['Dog', 'Cat', 'Rabbit', 'Snake']
+      'questionText': 'Longest human hair was over 5m long?',
+      'answers': ['true', 'false'],
+      'correctAnswer': 'true',
     },
     {
-      'questionText': 'who\'s your favorite instructor?',
-      'answers': ['Bob', 'Bill', 'Max']
+      'questionText': 'You weight more on Mars than Earth?',
+      'answers': ['true', 'false'],
+      'correctAnswer': 'false',
     },
   ];
 
-  void _onAnswerClick() {
+  void _onAnswerClick(answerText) {
     setState(() {
+      if (answerText == questions[_questionIndex]['correctAnswer']) {
+        _score++;
+      }
       _questionIndex++;
     });
     if (_questionIndex >= questions.length) {
@@ -45,11 +52,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Quiz App'),
+          title: Text('Current Score: ${_score.toString()}'),
         ),
         body: _quizUnfinished
             ? Quiz(questions, _questionIndex, _onAnswerClick)
-            : CompletionMessage('You finished the Quiz!'),
+            : CompletionMessage('Your scored: ${_score.toString()} points!'),
       ),
     );
   }

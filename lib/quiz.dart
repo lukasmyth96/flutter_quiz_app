@@ -16,7 +16,8 @@ class Quiz extends StatelessWidget {
       children: [
         Question(questions[questionIndex]['questionText']),
         ...(questions[questionIndex]['answers'] as List<String>)
-            .map((answerText) => Answer(answerText, onAnswerClick))
+            .map((answerText) =>
+                Answer(answerText, () => onAnswerClick(answerText)))
             .toList(),
       ],
     );
